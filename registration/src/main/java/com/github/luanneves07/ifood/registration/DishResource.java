@@ -17,12 +17,16 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
+
+@Tag(name = "Dish")
 @Path("/restaurants/{idRestaurant}/dishes")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class DishResource {
 
 	@GET
+	@Tag(name = "Dish")
 	public List<Restaurant> list(@PathParam("idRestaurant") Long idRestaurant) {
 		Optional<Restaurant> restaurantOp = Restaurant.findByIdOptional(idRestaurant);
 		if (restaurantOp.isEmpty()) {
@@ -33,6 +37,7 @@ public class DishResource {
 
 	@POST
 	@Transactional
+	@Tag(name = "Dish")
 	public Response create(@PathParam("idRestaurant") Long idRestaurant, Dish dto) {
 		Optional<Restaurant> restaurantOp = Restaurant.findByIdOptional(idRestaurant);
 		if (restaurantOp.isEmpty()) {
@@ -50,6 +55,7 @@ public class DishResource {
 	@PUT
 	@Path("{id}")
 	@Transactional
+	@Tag(name = "Dish")
 	public Response update(@PathParam("idRestaurant") Long idRestaurant, @PathParam("id") Long id, Dish dto) {
 		Optional<Restaurant> restaurantOp = Restaurant.findByIdOptional(idRestaurant);
 		if (restaurantOp.isEmpty()) {
@@ -71,6 +77,7 @@ public class DishResource {
 	@DELETE
 	@Path("{id}")
 	@Transactional
+	@Tag(name = "Dish")
 	public Response delete(@PathParam("idRestaurant") Long idRestaurant, @PathParam("id") Long id) {
 		Optional<Restaurant> restaurantOp = Restaurant.findByIdOptional(idRestaurant);
 		if (restaurantOp.isEmpty()) {
