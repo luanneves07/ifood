@@ -1,0 +1,13 @@
+restaurant:
+  - ID: 2
+    NAME: "New restaurant"
+    OWNER: "LNEVES07"
+dish:
+  - ID: 123
+    NAME: "New food"
+    PRICE: "150"
+    RESTAURANT_ID: 2
+  - ID: 456
+    NAME: "New food 01"
+    PRICE: "125"
+    RESTAURANT_ID: 2

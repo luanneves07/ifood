@@ -49,7 +49,7 @@ public class DishResource {
 		dish.description = dto.description;
 		dish.restaurant = restaurantOp.get();
 		dish.persist();
-		return Response.status(Status.CREATED).build();
+		return Response.ok(dish).build();
 	}
 
 	@PUT
@@ -71,7 +71,7 @@ public class DishResource {
 		dish.price = dto.price;
 		dish.description = dto.description;
 		dish.persist();
-		return Response.status(Status.CREATED).build();
+		return Response.ok(dish).build();
 	}
 
 	@DELETE
@@ -90,6 +90,6 @@ public class DishResource {
 		}
 
 		dishOp.get().delete();
-		return Response.status(Status.CREATED).build();
+		return Response.status(Status.OK).build();
 	}
 }

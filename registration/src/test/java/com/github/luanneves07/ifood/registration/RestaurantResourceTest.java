@@ -33,7 +33,7 @@ public class RestaurantResourceTest {
 	}
 
 	@Test
-	public void testCreateRestaurants() {
+	public void testCreateRestaurant() {
 		Restaurant restaurant = new Restaurant();
 		restaurant.name = "test01";
 		restaurant.owner = "Luan";
@@ -43,7 +43,7 @@ public class RestaurantResourceTest {
 			.contentType(MediaType.APPLICATION_JSON)
 			.when().post("/restaurants")
 			.then()
-			.statusCode(200);
+			.statusCode(Status.OK.getStatusCode());
 		
 		Restaurant found = Restaurant.find("name", restaurant.name).firstResult();
 		assertEquals(restaurant.name, found.name);
@@ -51,7 +51,7 @@ public class RestaurantResourceTest {
 
 	@Test
 	@DataSet("restaurant-01.yml")
-	public void testUpdateRestaurants() {
+	public void testUpdateRestaurant() {
 		Restaurant restaurant = new Restaurant();
 		restaurant.name = "test01";
 		restaurant.owner = "Luan";
@@ -72,7 +72,7 @@ public class RestaurantResourceTest {
 	
 	@Test
 	@DataSet("restaurant-01.yml")
-	public void testDeleteRestaurants() {
+	public void testDeleteRestaurant() {
 		Long id = 123L;
 		
 		given()
