@@ -61,10 +61,9 @@
 		</dependency>
 		<dependency>
 			<groupId>com.approvaltests</groupId>
-			<artifactId>approvaltests-parent</artifactId>
+			<artifactId>approvaltests</artifactId>
 			<version>9.1.0</version>
 			<scope>test</scope>
-			<type>pom</type>
 		</dependency>
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
@@ -75,6 +74,11 @@
 			<groupId>io.rest-assured</groupId>
 			<artifactId>rest-assured</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>stax</groupId>
+			<artifactId>stax</artifactId>
+			<version>1.2.0</version>
 		</dependency>
 		<dependency>
 			<groupId>io.quarkus</groupId>

@@ -1,0 +1,7 @@
+restaurant:
+  - ID: 123
+    NAME: "New Restaurant"
+    OWNER: "LNEVES07"
+  - ID: 456
+    NAME: "New Restaurant 01"
+    OWNER: "LNEVES07-01"

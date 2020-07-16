@@ -33,7 +33,7 @@ public class RestaurantResource {
 	@Transactional
 	public Response create(Restaurant dto) {
 		dto.persist();
-		return Response.status(Status.CREATED).build();
+		return Response.ok(dto, MediaType.APPLICATION_JSON).build();
 	}
 
 	@PUT
@@ -48,7 +48,7 @@ public class RestaurantResource {
 			restaurant.name = dto.name;
 			restaurant.owner = dto.owner;
 			restaurant.persist();
-			return Response.status(Status.OK).build();
+			return Response.ok(restaurant, MediaType.APPLICATION_JSON).build();
 		}
 	}
 
