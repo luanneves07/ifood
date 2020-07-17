@@ -2,6 +2,7 @@ package com.github.luanneves07.ifood.registration;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
@@ -19,34 +20,37 @@ import javax.ws.rs.core.Response.Status;
 
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
+import com.github.luanneves07.ifood.registration.dto.DishDto;
+import com.github.luanneves07.ifood.registration.dto.DishMapper;
+
 @Tag(name = "Dish")
 @Path("/restaurants/{idRestaurant}/dishes")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class DishResource {
 
+	private DishMapper dishMapper = DishMapper.INSTANCE;
+
 	@GET
 	@Tag(name = "Dish")
-	public List<Restaurant> list(@PathParam("idRestaurant") Long idRestaurant) {
+	public List<DishDto> list(@PathParam("idRestaurant") Long idRestaurant) {
 		Optional<Restaurant> restaurantOp = Restaurant.findByIdOptional(idRestaurant);
 		if (restaurantOp.isEmpty()) {
 			throw new NotFoundException("Retaurant does not exists!");
 		}
-		return Dish.list("restaurant", restaurantOp.get());
+		return Dish.list("restaurant", restaurantOp.get()).stream().map(t -> dishMapper.dishToDishDto((Dish) t))
+				.collect(Collectors.toList());
 	}
 
 	@POST
 	@Transactional
 	@Tag(name = "Dish")
-	public Response create(@PathParam("idRestaurant") Long idRestaurant, Dish dto) {
+	public Response create(@PathParam("idRestaurant") Long idRestaurant, DishDto dto) {
 		Optional<Restaurant> restaurantOp = Restaurant.findByIdOptional(idRestaurant);
 		if (restaurantOp.isEmpty()) {
 			return Response.status(Status.NOT_FOUND).build();
 		}
-		Dish dish = new Dish();
-		dish.name = dto.name;
-		dish.price = dto.price;
-		dish.description = dto.description;
+		Dish dish = dishMapper.toDish(dto);
 		dish.restaurant = restaurantOp.get();
 		dish.persist();
 		return Response.ok(dish).build();
@@ -56,7 +60,7 @@ public class DishResource {
 	@Path("{id}")
 	@Transactional
 	@Tag(name = "Dish")
-	public Response update(@PathParam("idRestaurant") Long idRestaurant, @PathParam("id") Long id, Dish dto) {
+	public Response update(@PathParam("idRestaurant") Long idRestaurant, @PathParam("id") Long id, DishDto dto) {
 		Optional<Restaurant> restaurantOp = Restaurant.findByIdOptional(idRestaurant);
 		if (restaurantOp.isEmpty()) {
 			return Response.status(Status.NOT_FOUND).build();

@@ -2,6 +2,7 @@ package com.github.luanneves07.ifood.registration;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
@@ -18,34 +19,42 @@ import javax.ws.rs.core.Response.Status;
 
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
+import com.github.luanneves07.ifood.registration.dto.RestaurantDto;
+import com.github.luanneves07.ifood.registration.dto.RestaurantMapper;
+
 @Path("/restaurants")
 @Tag(name = "Restaurant")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class RestaurantResource {
 
+	private RestaurantMapper restaurantMapper = RestaurantMapper.INSTANCE;
+
 	@GET
-	public List<Restaurant> list() {
-		return Restaurant.listAll();
+	public List<RestaurantDto> list() {
+		return Restaurant.streamAll().map(t -> {
+			return restaurantMapper.restaurantToRestaurantDto((Restaurant) t);
+		}).collect(Collectors.toList());
 	}
 
 	@POST
 	@Transactional
-	public Response create(Restaurant dto) {
-		dto.persist();
+	public Response create(RestaurantDto dto) {
+		Restaurant restaurant = restaurantMapper.toRestaurant(dto);
+		restaurant.persist();
 		return Response.ok(dto, MediaType.APPLICATION_JSON).build();
 	}
 
 	@PUT
 	@Path("{id}")
 	@Transactional
-	public Response update(@PathParam("id") Long id, Restaurant dto) {
+	public Response update(@PathParam("id") Long id, RestaurantDto dto) {
 		Optional<Restaurant> restaurantOp = Restaurant.findByIdOptional(id);
 		if (restaurantOp.isEmpty()) {
 			return Response.status(Status.NOT_FOUND).build();
 		} else {
 			Restaurant restaurant = restaurantOp.get();
-			restaurant.name = dto.name;
+			restaurant.name = dto.tradingName;
 			restaurant.owner = dto.owner;
 			restaurant.persist();
 			return Response.ok(restaurant, MediaType.APPLICATION_JSON).build();

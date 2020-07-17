@@ -2,6 +2,7 @@ package com.github.luanneves07.ifood.registration;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,7 +29,7 @@ public class Restaurant extends PanacheEntityBase {
 
 	public String name;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	public Location location;
 
 	@CreationTimestamp
