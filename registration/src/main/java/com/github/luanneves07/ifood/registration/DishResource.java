@@ -71,9 +71,7 @@ public class DishResource {
 			return Response.status(Status.NOT_FOUND).build();
 		}
 		Dish dish = dishOp.get();
-		dish.name = dto.name;
-		dish.price = dto.price;
-		dish.description = dto.description;
+		dishMapper.toDish(dto, dish);
 		dish.persist();
 		return Response.ok(dish).build();
 	}

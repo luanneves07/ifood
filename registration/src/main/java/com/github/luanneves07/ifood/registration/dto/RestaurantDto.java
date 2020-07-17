@@ -8,5 +8,7 @@ public class RestaurantDto {
 
 	public String tradingName;
 
+	public String creationTime;
+
 	public LocationDto location;
 }
