@@ -1,11 +1,9 @@
 package com.github.luanneves07.ifood.registration;
 
-import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Optional;
 
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response.Status;
 
 import org.approvaltests.Approvals;
@@ -18,12 +16,19 @@ import com.github.database.rider.core.api.dataset.DataSet;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
+import io.restassured.specification.RequestSpecification;
 
 @DBRider
 @QuarkusTest
 @DBUnit(caseInsensitiveStrategy = Orthography.LOWERCASE)
 @QuarkusTestResource(RegistrationTestLifeCycleManager.class)
 public class RestaurantResourceTest {
+	
+	private RequestSpecification given() {
+		return RestAssured.given().contentType(ContentType.JSON);
+	}
 
 	@Test
 	@DataSet("restaurant-01.yml")
@@ -40,7 +45,6 @@ public class RestaurantResourceTest {
 
 		given()
 			.body(restaurant)
-			.contentType(MediaType.APPLICATION_JSON)
 			.when().post("/restaurants")
 			.then()
 			.statusCode(Status.OK.getStatusCode());
@@ -60,7 +64,6 @@ public class RestaurantResourceTest {
 		given()
 			.with().pathParam("id", id)
 			.body(restaurant)
-			.contentType(MediaType.APPLICATION_JSON)
 			.when().put("/restaurants/{id}")
 			.then()
 			.statusCode(Status.OK.getStatusCode())
@@ -77,7 +80,6 @@ public class RestaurantResourceTest {
 		
 		given()
 			.with().pathParam("id", id)
-			.contentType(MediaType.APPLICATION_JSON)
 			.when().delete("/restaurants/{id}")
 			.then()
 			.statusCode(Status.OK.getStatusCode())
