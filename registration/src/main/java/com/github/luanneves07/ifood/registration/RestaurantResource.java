@@ -54,8 +54,7 @@ public class RestaurantResource {
 			return Response.status(Status.NOT_FOUND).build();
 		} else {
 			Restaurant restaurant = restaurantOp.get();
-			restaurant.name = dto.tradingName;
-			restaurant.owner = dto.owner;
+			restaurantMapper.toRestaurant(dto, restaurant);
 			restaurant.persist();
 			return Response.ok(restaurant, MediaType.APPLICATION_JSON).build();
 		}

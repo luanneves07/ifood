@@ -2,6 +2,7 @@ package com.github.luanneves07.ifood.registration.dto;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
 import com.github.luanneves07.ifood.registration.Restaurant;
@@ -16,5 +17,9 @@ public interface RestaurantMapper {
 
 	@Mapping(source = "tradingName", target = "name")
 	public Restaurant toRestaurant(RestaurantDto restaurant);
+
+	@Mapping(source = "tradingName", target = "name")
+	@Mapping(target = "creationTime", dateFormat = "dd/MM/yyyy HH:mm:ss")
+	public void toRestaurant(RestaurantDto dto, @MappingTarget Restaurant restaurant);
 
 }
