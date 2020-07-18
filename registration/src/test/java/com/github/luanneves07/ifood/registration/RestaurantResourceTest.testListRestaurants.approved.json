@@ -1,12 +1,10 @@
 [
   {
-    "id": 123,
-    "name": "New Restaurant",
-    "owner": "LNEVES07"
+    "owner": "LNEVES07",
+    "tradingName": "New Restaurant"
   },
   {
-    "id": 456,
-    "name": "New Restaurant 01",
-    "owner": "LNEVES07-01"
+    "owner": "LNEVES07-01",
+    "tradingName": "New Restaurant 01"
   }
 ]
