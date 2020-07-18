@@ -53,7 +53,7 @@ public class DishResource {
 		Dish dish = dishMapper.toDish(dto);
 		dish.restaurant = restaurantOp.get();
 		dish.persist();
-		return Response.ok(dish).build();
+		return Response.ok(dto).build();
 	}
 
 	@PUT
@@ -73,7 +73,7 @@ public class DishResource {
 		Dish dish = dishOp.get();
 		dishMapper.toDish(dto, dish);
 		dish.persist();
-		return Response.ok(dish).build();
+		return Response.ok(dto).build();
 	}
 
 	@DELETE

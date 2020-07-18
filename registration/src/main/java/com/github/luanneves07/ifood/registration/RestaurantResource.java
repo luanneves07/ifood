@@ -56,7 +56,7 @@ public class RestaurantResource {
 			Restaurant restaurant = restaurantOp.get();
 			restaurantMapper.toRestaurant(dto, restaurant);
 			restaurant.persist();
-			return Response.ok(restaurant, MediaType.APPLICATION_JSON).build();
+			return Response.ok(dto, MediaType.APPLICATION_JSON).build();
 		}
 	}
 
