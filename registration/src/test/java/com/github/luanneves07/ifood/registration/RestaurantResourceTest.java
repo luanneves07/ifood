@@ -13,6 +13,7 @@ import com.github.database.rider.cdi.api.DBRider;
 import com.github.database.rider.core.api.configuration.DBUnit;
 import com.github.database.rider.core.api.configuration.Orthography;
 import com.github.database.rider.core.api.dataset.DataSet;
+import com.github.luanneves07.ifood.registration.dto.RestaurantDto;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
@@ -39,29 +40,31 @@ public class RestaurantResourceTest {
 
 	@Test
 	public void testCreateRestaurant() {
-		Restaurant restaurant = new Restaurant();
-		restaurant.name = "test01";
-		restaurant.owner = "Luan";
+		RestaurantDto dto = new RestaurantDto();
+		dto.tradingName = "test01";
+		dto.owner = "Luan";
 
-		given()
-			.body(restaurant)
+		String res = given()
+			.body(dto)
 			.when().post("/restaurants")
 			.then()
-			.statusCode(Status.OK.getStatusCode());
+			.statusCode(Status.OK.getStatusCode())
+			.extract().asString();
 		
-		Restaurant found = Restaurant.find("name", restaurant.name).firstResult();
-		assertEquals(restaurant.name, found.name);
+		Restaurant found = Restaurant.find("name", dto.tradingName).firstResult();
+		assertEquals(dto.tradingName, found.name);
+		Approvals.verifyJson(res);
 	}
 
 	@Test
 	@DataSet("restaurant-01.yml")
 	public void testUpdateRestaurant() {
-		Restaurant restaurant = new Restaurant();
-		restaurant.name = "test01";
+		RestaurantDto restaurant = new RestaurantDto();
+		restaurant.tradingName = "test01";
 		restaurant.owner = "Luan";
 		Long id = 456L;
 		
-		given()
+		String res = given()
 			.with().pathParam("id", id)
 			.body(restaurant)
 			.when().put("/restaurants/{id}")
@@ -70,7 +73,8 @@ public class RestaurantResourceTest {
 			.extract().asString();
 		
 		Restaurant found = Restaurant.findById(id);
-		assertEquals(restaurant.name, found.name);
+		assertEquals(restaurant.tradingName, found.name);
+		Approvals.verifyJson(res);
 	}
 	
 	@Test
