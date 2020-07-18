@@ -1,21 +1,15 @@
 [
   {
-    "id": 123,
     "name": "New food",
     "price": 150.00,
     "restaurant": {
-      "id": 2,
-      "name": "New restaurant",
       "owner": "LNEVES07"
     }
   },
   {
-    "id": 456,
     "name": "New food 01",
     "price": 125.00,
     "restaurant": {
-      "id": 2,
-      "name": "New restaurant",
       "owner": "LNEVES07"
     }
   }
