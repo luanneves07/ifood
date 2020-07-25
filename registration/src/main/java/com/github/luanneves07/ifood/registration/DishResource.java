@@ -20,8 +20,10 @@ import javax.ws.rs.core.Response.Status;
 
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
+import com.github.luanneves07.ifood.registration.dto.CreateDishDto;
 import com.github.luanneves07.ifood.registration.dto.DishDto;
-import com.github.luanneves07.ifood.registration.dto.DishMapper;
+import com.github.luanneves07.ifood.registration.dto.UpdateDishDto;
+import com.github.luanneves07.ifood.registration.mapper.DishMapper;
 
 @Tag(name = "Dish")
 @Path("/restaurants/{idRestaurant}/dishes")
@@ -45,7 +47,7 @@ public class DishResource {
 	@POST
 	@Transactional
 	@Tag(name = "Dish")
-	public Response create(@PathParam("idRestaurant") Long idRestaurant, DishDto dto) {
+	public Response create(@PathParam("idRestaurant") Long idRestaurant, CreateDishDto dto) {
 		Optional<Restaurant> restaurantOp = Restaurant.findByIdOptional(idRestaurant);
 		if (restaurantOp.isEmpty()) {
 			return Response.status(Status.NOT_FOUND).build();
@@ -60,7 +62,7 @@ public class DishResource {
 	@Path("{id}")
 	@Transactional
 	@Tag(name = "Dish")
-	public Response update(@PathParam("idRestaurant") Long idRestaurant, @PathParam("id") Long id, DishDto dto) {
+	public Response update(@PathParam("idRestaurant") Long idRestaurant, @PathParam("id") Long id, UpdateDishDto dto) {
 		Optional<Restaurant> restaurantOp = Restaurant.findByIdOptional(idRestaurant);
 		if (restaurantOp.isEmpty()) {
 			return Response.status(Status.NOT_FOUND).build();

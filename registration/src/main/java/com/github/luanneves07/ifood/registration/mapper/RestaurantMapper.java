@@ -1,4 +1,4 @@
-package com.github.luanneves07.ifood.registration.dto;
+package com.github.luanneves07.ifood.registration.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -6,6 +6,7 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
 import com.github.luanneves07.ifood.registration.Restaurant;
+import com.github.luanneves07.ifood.registration.dto.RestaurantDto;
 
 @Mapper
 public interface RestaurantMapper {

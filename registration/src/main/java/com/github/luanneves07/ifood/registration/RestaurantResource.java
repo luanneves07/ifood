@@ -20,7 +20,7 @@ import javax.ws.rs.core.Response.Status;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import com.github.luanneves07.ifood.registration.dto.RestaurantDto;
-import com.github.luanneves07.ifood.registration.dto.RestaurantMapper;
+import com.github.luanneves07.ifood.registration.mapper.RestaurantMapper;
 
 @Path("/restaurants")
 @Tag(name = "Restaurant")
